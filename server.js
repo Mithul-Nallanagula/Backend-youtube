@@ -9,33 +9,36 @@ import cors from "cors";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000; // Use default port 5000 if not specified
+const PORT = process.env.PORT;
 
-// CORS configuration
+// CORS configuration to allow both localhost and production URLs
 const corsOptions = {
-  origin: 'https://youtube-frontend-plum.vercel.app', // Frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Methods allowed
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+  origin: ["http://localhost:5173", "https://youtube-frontend-plum.vercel.app"], // Add both frontend URLs
+  methods: "GET,POST,PUT,DELETE",
+  credentials: true, // Allow credentials (cookies, etc.)
 };
+
+app.use(cors(corsOptions));  // Apply the CORS options to your app
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors(corsOptions)); // Use the CORS options
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB connected");
   })
   .catch((err) => {
-    console.log("MongoDB connection error:", err);
+    console.log(err);
   });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-// Routing
 app.use("/videos", videorouter);
 app.use("/auth", authrouter);
 app.use("/channel", channelrote);
+
+console.log("Server is running on port " + process.env.MONGO_URI);
+
