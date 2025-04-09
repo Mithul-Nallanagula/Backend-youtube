@@ -17,10 +17,10 @@ app.use(cors())
 
 
  
-mongoose.connect(process.env.MONGO_URI)
-app.get('/', (req, res) => {
-    res.send('API is running ');
-});
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} `);
