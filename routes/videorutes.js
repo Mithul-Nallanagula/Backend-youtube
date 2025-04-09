@@ -1,6 +1,6 @@
 import express from "express";
-import { getallvideo , getvideo ,uploadvideo ,likevide
-oController,deleteCommentController,updateCommentController , addCommentController } from "../controller/VideoController.js";
+import { getallvideo , getvideo ,uploadvideo ,likevideoController,deleteCommentController,updateCommentController , addCommentController } from "../controller/VideoController.js";
+
 const videorouter = express.Router();
 
 videorouter.get('/video', getallvideo);
