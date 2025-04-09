@@ -17,10 +17,7 @@ app.use(cors())
 
 
  
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
+mongoose.connect(process.env.MONGO_URI);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} `);
@@ -33,3 +30,4 @@ app.use("/channel" , channelrote)
 
 
 
+console.log("Mongo URI:", process.env.MONGO_URI);
